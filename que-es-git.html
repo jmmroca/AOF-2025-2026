@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Qué es Git? - Guía Completa con Aplicaciones Reales</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #f14e32 0%, #c43e28 50%, #a53220 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        .header h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 10;
+        }
+
+        .header h1 span {
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        .header p {
+            font-size: 1.3em;
+            max-width: 800px;
+            margin: 20px auto;
+            opacity: 0.95;
+            position: relative;
+            z-index: 10;
+        }
+
+        .git-icon {
+            font-size: 5em;
+            margin-bottom: 20px;
+            display: inline-block;
+            filter: drop-shadow(2px 4px 6px black);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Navegación rápida */
+        .quick-nav {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .quick-nav ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            list-style: none;
+        }
+
+        .quick-nav a {
+            background: #f8f9fa;
+            color: #333;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .quick-nav a:hover {
+            background: #f14e32;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(241, 78, 50, 0.3);
+        }
+
+        /* Contenido */
+        .content {
+            padding: 40px;
+        }
+
+        /* Tarjetas de concepto */
+        .concept-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border-left: 5px solid #f14e32;
+            transition: transform 0.3s;
+        }
+
+        .concept-card:hover {
+            transform: translateX(10px);
+        }
+
+        .concept-card h2 {
+            color: #f14e32;
+            margin-bottom: 20px;
+            font-size: 2em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-card h3 {
+            color: #34495e;
+            margin: 20px 0 15px;
+            font-size: 1.4em;
+            border-bottom: 2px solid #f14e32;
+            padding-bottom: 10px;
+        }
+
+        /* Grid de aplicaciones */
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .app-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s;
+            border: 1px solid rgba(241, 78, 50, 0.2);
+        }
+
+        .app-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(241, 78, 50, 0.2);
+            border-color: #f14e32;
+        }
+
+        .app-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .app-card h4 {
+            color: #f14e32;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .app-card p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .app-example {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85em;
+            border-left: 3px solid #f14e32;
+            margin-top: 10px;
+        }
+
+        /* Tablas */
+        .table-container {
+            overflow-x: auto;
+            margin: 30px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            font-weight: 600;
+            padding: 15px;
+            font-size: 1.1em;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: #fff0ed;
+        }
+
+        .code {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+        }
+
+        /* Notas y tips */
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .tip {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .warning {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .success-story {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        .success-story h3 {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.3);
+        }
+
+        /* Stats section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: #f14e32;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 1em;
+        }
+
+        /* Comparativa antes/después */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .comparison-col {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .comparison-col h4 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .comparison-col.before h4 {
+            color: #dc3545;
+        }
+
+        .comparison-col.after h4 {
+            color: #28a745;
+        }
+
+        .comparison-col ul {
+            list-style: none;
+        }
+
+        .comparison-col li {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .comparison-col.before li {
+            background: #f8d7da;
+        }
+
+        .comparison-col.after li {
+            background: #d4edda;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #2c3e50 0%, #1e2a3a 100%);
+            color: white;
+            text-align: center;
+            padding: 40px;
+            margin-top: 40px;
+        }
+
+        .footer a {
+            color: #f14e32;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Animaciones */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-30px); }
+            60% { transform: translateY(-15px); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .concept-card, .app-card, .stat-item {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .quick-nav ul {
+                flex-direction: column;
+            }
+            
+            .quick-nav a {
+                display: block;
+                text-align: center;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media print {
+            .quick-nav, .footer {
+                display: none;
+            }
+        }
+
+        /* Scrollbar personalizada */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #f14e32;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c43e28;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="git-icon">⚡</div>
+            <h1>¿Qué es <span>GIT</span>?</h1>
+            <p>Sistema de control de versiones distribuido • Creado por Linus Torvalds (2005)</p>
+            <p style="font-size: 1em; margin-top: 20px;">Aplicaciones reales • Casos de éxito • Ejemplos prácticos</p>
+        </div>
+
+        <!-- Navegación rápida -->
+        <div class="quick-nav">
+            <ul>
+                <li><a href="#que-es">🎯 ¿Qué es?</a></li>
+                <li><a href="#conceptos">🔑 Conceptos</a></li>
+                <li><a href="#analogia">📊 Analogía</a></li>
+                <li><a href="#aplicaciones">🏢 Aplicaciones</a></li>
+                <li><a href="#casos-exito">🌟 Casos de éxito</a></li>
+                <li><a href="#beneficios">📈 Beneficios</a></li>
+                <li><a href="#comparativa">📊 Comparativa</a></li>
+            </ul>
+        </div>
+
+        <!-- Contenido principal -->
+        <div class="content">
+            <!-- Sección: ¿Qué es Git? -->
+            <section id="que-es" class="concept-card">
+                <h2>🎯 ¿Qué es Git?</h2>
+                <p><strong>Git</strong> es un <strong>sistema de control de versiones distribuido</strong> creado por <strong>Linus Torvalds</strong> en 2005 (el mismo creador de Linux). Su propósito es registrar los cambios realizados en archivos a lo largo del tiempo, permitiendo volver a versiones anteriores, trabajar en equipo sin pisarse los cambios, y tener un historial completo de todo lo que ocurre en un proyecto.</p>
+            </section>
+
+            <!-- Sección: Conceptos clave -->
+            <section id="conceptos" class="concept-card">
+                <h2>🔑 Conceptos clave</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Concepto</th>
+                                <th>Explicación sencilla</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Control de versiones</strong></td>
+                                <td>Como "guardar partida" en un videojuego, pero para archivos</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Distribuido</strong></td>
+                                <td>Cada persona tiene una copia COMPLETA del historial, no depende de un servidor central</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Repositorio</strong></td>
+                                <td>La carpeta donde Git guarda todo el historial de tu proyecto</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Commit</strong></td>
+                                <td>Una "foto" de tus archivos en un momento concreto</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Sección: Analogía -->
+            <section id="analogia" class="concept-card">
+                <h2>📊 Analogía para entender Git</h2>
+                <p>Imagina que estás escribiendo un libro:</p>
+                
+                <div class="comparison-grid">
+                    <div class="comparison-col before">
+                        <h4>❌ Sin Git</h4>
+                        <ul>
+                            <li>📁 Guardas "libro_final.docx", "libro_final2.docx", "libro_definitivo3.docx"...</li>
+                            <li>❌ Si te equivocas, no puedes recuperar la versión anterior fácilmente</li>
+                            <li>👥 Si trabajas con un coautor, os enviáis archivos por email y os liáis</li>
+                            <li>❓ No sabes quién cambió qué ni cuándo</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-col after">
+                        <h4>✅ Con Git</h4>
+                        <ul>
+                            <li>📸 Cada guardado es un commit: "Añadido capítulo 1", "Corregido error página 5"</li>
+                            <li>⏪ Puedes volver a cualquier versión anterior con un comando</li>
+                            <li>🤝 Ambos trabajan a la vez y Git fusiona los cambios automáticamente</li>
+                            <li>📋 Git registra autor, fecha y cambios exactos</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección: Aplicaciones reales -->
+            <section id="aplicaciones" class="concept-card">
+                <h2>🏢 Aplicaciones reales de Git</h2>
+
+                <h3>1. Desarrollo de Software 💻</h3>
+                <p><strong>Empresas tecnológicas:</strong> Google, Microsoft, Facebook, Amazon, Netflix...</p>
+                <div class="app-example">
+                    <code>git checkout -b nueva-funcionalidad    # Crear rama para nueva característica<br>
+                    git add .                              # Añadir cambios<br>
+                    git commit -m "Añadido botón de pago"   # Guardar cambios<br>
+                    git push origin nueva-funcionalidad     # Subir cambios para revisión</code>
+                </div>
+
+                <div class="apps-grid">
+                    <div class="app-card">
+                        <div class="app-icon">🌍</div>
+                        <h4>2. Proyectos Open Source</h4>
+                        <p>Linux, Python, VS Code, WordPress</p>
+                        <div class="app-example">
+                            git clone https://github.com/usuario/proyecto.git<br>
+                            git checkout -b mi-contribucion<br>
+                            git commit -m "Corregido error"
+                        </div>
+                    </div>
+
+                    <div class="app-card">
+                        <div class="app-icon">📚</div>
+                        <h4>3. Documentación y Libros</h4>
+                        <p>Libros técnicos, manuales, documentación</p>
+                        <div class="app-example">
+                            git init libro-python<br>
+                            echo "# Título" > README.md<br>
+                            git commit -m "Inicio del libro"
+                        </div>
+                    </div>
+
+                    <div class="app-card">
+                        <div class="app-icon">⚙️</div>
+                        <h4>4. Configuración (Dotfiles)</h4>
+                        <p>Archivos de configuración personal</p>
+                        <div class="app-example">
+                            git init ~/.dotfiles<br>
+                            cp ~/.bashrc ~/.dotfiles/<br>
+                            git commit -m "Mi configuración"
+                        </div>
+                    </div>
+
+                    <div class="app-card">
+                        <div class="app-icon">🎨</div>
+                        <h4>5. Diseño y Multimedia</h4>
+                        <p>Photoshop, campañas marketing, vídeo</p>
+                    </div>
+
+                    <div class="app-card">
+                        <div class="app-icon">🔬</div>
+                        <h4>6. Investigación Científica</h4>
+                        <p>Tesis, artículos, experimentos</p>
+                    </div>
+
+                    <div class="app-card">
+                        <div class="app-icon">🎓</div>
+                        <h4>7. Educación</h4>
+                        <p>Entrega de prácticas, material didáctico</p>
+                    </div>
+
+                    <div class="app-card">
+                        <div class="app-icon">🏛️</div>
+                        <h4>8. Administración Pública</h4>
+                        <p>Legislación, transparencia, datos abiertos</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección: Casos de éxito -->
+            <section id="casos-exito" class="concept-card">
+                <h2>🌟 Casos de éxito reales</h2>
+                
+                <div class="success-story">
+                    <h3>🎬 Netflix</h3>
+                    <p>Netflix usa Git para gestionar todo su código de microservicios, APIs y herramientas internas. Cuando un desarrollador quiere añadir una nueva funcionalidad, crea una rama, desarrolla, y cuando está listo, se fusiona tras revisiones automáticas.</p>
+                </div>
+
+                <div class="success-story">
+                    <h3>🏙️ Ayuntamiento de Barcelona</h3>
+                    <p>El ayuntamiento publica en GitHub sus proyectos de código abierto y datos abiertos, permitiendo a los ciudadanos ver cómo se desarrollan las aplicaciones municipales.</p>
+                </div>
+
+                <div class="success-story">
+                    <h3>🚀 NASA</h3>
+                    <p>La NASA usa Git para el software de misiones espaciales, permitiendo un control riguroso de versiones y la colaboración entre equipos distribuidos.</p>
+                </div>
+
+                <div class="success-story">
+                    <h3>🐦 Twitter</h3>
+                    <p>Twitter gestiona sus microservicios con Git, permitiendo despliegues rápidos y seguros.</p>
+                </div>
+            </section>
+
+            <!-- Sección: Beneficios -->
+            <section id="beneficios" class="concept-card">
+                <h2>📈 Beneficios en el mundo real</h2>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Área</th>
+                                <th>Beneficio</th>
+                                <th>Ejemplo concreto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Empresas</strong></td>
+                                <td>Colaboración sin conflictos</td>
+                                <td>50 desarrolladores trabajando en el mismo proyecto</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Open Source</strong></td>
+                                <td>Contribuciones globales</td>
+                                <td>Alguien de Japón arregla un error en un proyecto de EEUU</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Startups</strong></td>
+                                <td>Iteración rápida</td>
+                                <td>Lanzar nuevas versiones cada día</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Investigación</strong></td>
+                                <td>Reproducibilidad</td>
+                                <td>Saber exactamente qué versión del código generó los resultados</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Educación</strong></td>
+                                <td>Evaluación objetiva</td>
+                                <td>Ver la evolución del trabajo del alumno</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Sección: Herramientas -->
+            <section class="concept-card">
+                <h2>🛠️ Herramientas que usan Git</h2>
+                
+                <div class="apps-grid">
+                    <div class="app-card">
+                        <h4>GitHub</h4>
+                        <p>100+ millones de repositorios</p>
+                    </div>
+                    <div class="app-card">
+                        <h4>GitLab</h4>
+                        <p>DevOps completo</p>
+                    </div>
+                    <div class="app-card">
+                        <h4>Bitbucket</h4>
+                        <p>Integración con Jira</p>
+                    </div>
+                    <div class="app-card">
+                        <h4>SourceForge</h4>
+                        <p>El clásico</p>
+                    </div>
+                    <div class="app-card">
+                        <h4>Azure DevOps</h4>
+                        <p>CI/CD integrado</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ejemplo práctico empresa real -->
+            <section class="concept-card">
+                <h2>🎮 Ejemplo práctico: Una empresa real</h2>
+                <p><strong>Globant</strong> (empresa tecnológica con 30.000+ empleados):</p>
+                
+                <div class="code" style="padding: 20px;">
+                    <pre style="color: #d4d4d4; background: transparent; margin: 0;">
+git clone https://github.com/globant/proyecto-cliente
+git checkout -b feature/nuevo-login
+# ... desarrollan durante días/semanas ...
+git add .
+git commit -m "Añadido login con huella digital"
+git push origin feature/nuevo-login
+# Otro compañero revisa el código y aprueba
+git checkout main
+git merge feature/nuevo-login
+git tag -a v2.5.0 -m "Versión con login biométrico"
+git push --tags
+# Automáticamente se despliega en producción</pre>
+                </div>
+            </section>
+
+            <!-- Sección: Comparativa antes/después -->
+            <section id="comparativa" class="concept-card">
+                <h2>📊 Comparativa: Antes y después de Git</h2>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Situación</th>
+                                <th>Antes de Git</th>
+                                <th>Con Git</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Compartir código</strong></td>
+                                <td>USB, email, FTP</td>
+                                <td><code>git push/pull</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Historial</strong></td>
+                                <td>"final_v3_ok_definitivo_REAL.zip"</td>
+                                <td><code>git log --oneline</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Quién cambió qué</strong></td>
+                                <td>Preguntar por WhatsApp</td>
+                                <td><code>git blame archivo</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Recuperar versión anterior</strong></td>
+                                <td>"¿alguien tiene la copia de ayer?"</td>
+                                <td><code>git checkout hash</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Trabajo en equipo</strong></td>
+                                <td>Conflictos constantes</td>
+                                <td><code>git merge, git rebase</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lanzar versión</strong></td>
+                                <td>Copiar manualmente</td>
+                                <td><code>git tag && git push</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">2005</div>
+                    <div class="stat-label">Año de creación</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100M+</div>
+                    <div class="stat-label">Repositorios en GitHub</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">90%</div>
+                    <div class="stat-label">Desarrolladores lo usan</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">Linus</div>
+                    <div class="stat-label">Torvalds (creador)</div>
+                </div>
+            </div>
+
+            <!-- Nota final -->
+            <div class="tip">
+                <strong>🎯 Conclusión:</strong> Git es mucho más que una herramienta para programadores:
+                <ul style="margin-top: 15px; margin-left: 30px;">
+                    <li>Es el estándar de facto para control de versiones</li>
+                    <li>Lo usan desde startups hasta la NASA</li>
+                    <li>Permite colaboración global sin fricción</li>
+                    <li>Da tranquilidad sabiendo que nada se pierde</li>
+                    <li>Es gratis y open source</li>
+                </ul>
+            </div>
+
+            <div class="note">
+                <strong>📌 ¿Dónde puedes usar Git tú?</strong><br>
+                • Tus apuntes de clase - Nunca pierdas tus notas<br>
+                • Tus recetas de cocina - Evolución de tus platos<br>
+                • Tu currículum - Diferentes versiones para distintas ofertas<br>
+                • Tus proyectos personales - Desde webs hasta novelas<br>
+                • Trabajos en equipo - Fin del caos de "trabajo_final_versión_23.docx"
+            </div>
+
+            <!-- Cita -->
+            <div class="warning" style="text-align: center; font-size: 1.2em;">
+                "Git no es solo para código, es para cualquier proyecto donde los cambios importen"<br>
+                <small>- Linus Torvalds</small>
+            </div>
+
+            <!-- Recursos -->
+            <div class="tip">
+                <strong>📚 Para saber más:</strong><br>
+                • <a href="https://git-scm.com" target="_blank">git-scm.com</a> - Web oficial<br>
+                • <a href="https://lab.github.com" target="_blank">GitHub Learning Lab</a> - Cursos gratuitos<br>
+                • <a href="https://git-scm.com/book/es/v2" target="_blank">Pro Git Book</a> - Libro completo gratis
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>⚡ Git - Sistema de control de versiones moderno y eficiente</p>
+            <p style="margin: 20px 0;">
+                <a href="#que-es">¿Qué es?</a> • 
+                <a href="#aplicaciones">Aplicaciones</a> • 
+                <a href="#casos-exito">Casos de éxito</a> • 
+                <a href="#beneficios">Beneficios</a>
+            </p>
+            <p style="opacity: 0.7;">© 2024 - Guía completa sobre Git y sus aplicaciones reales</p>
+        </div>
+    </div>
+</body>
+</html>
