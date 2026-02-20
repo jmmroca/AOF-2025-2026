@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración Profunda de Git - Guía Completa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #f14e32;
+            border-bottom: 3px solid #f14e32;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            padding-left: 10px;
+            border-left: 5px solid #f14e32;
+        }
+        
+        h3 {
+            color: #34495e;
+            margin: 25px 0 15px 0;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #e83e8c;
+            font-size: 0.95em;
+        }
+        
+        pre {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.95em;
+        }
+        
+        th {
+            background-color: #f14e32;
+            color: white;
+            font-weight: 600;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .tip {
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .warning {
+            background-color: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        ul {
+            margin: 15px 0 15px 30px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        hr {
+            border: none;
+            border-top: 2px dashed #ddd;
+            margin: 30px 0;
+        }
+        
+        .badge {
+            background-color: #f14e32;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        
+        .command-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            table {
+                font-size: 0.85em;
+            }
+            
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚡ Configuración Profunda de Git</h1>
+        <p style="font-size: 1.2em; color: #555;">Guía completa para transformar Git en un aliado verdaderamente eficiente</p>
+        
+        <div class="note">
+            <strong>📌 Nota inicial:</strong> Ir más allá de la configuración básica de Git es lo que transforma una herramienta funcional en un aliado verdaderamente eficiente.
+        </div>
+
+        <h2>🎯 Fundamentos: Identidad y Preferencias Básicas</h2>
+        <p>Antes de profundizar, asegurémonos de que los cimientos son sólidos. Cada commit lleva tu firma. Es crucial que el nombre y el email coincidan con los de tu cuenta en plataformas como GitHub o GitLab.</p>
+        
+        <div class="command-section">
+            <h3>📝 Establecer tu identidad:</h3>
+            <pre><code>git config --global user.name "Tu Nombre Completo"
+git config --global user.email "tu-email@ejemplo.com"</code></pre>
+            
+            <h3>✏️ Definir tu editor de texto:</h3>
+            <pre><code># Para Visual Studio Code
+git config --global core.editor "code --wait"
+
+# Para Sublime Text (en macOS)
+git config --global core.editor "/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl -n -w"
+
+# Para Nano (simple para terminal)
+git config --global core.editor "nano -w"</code></pre>
+        </div>
+
+        <h2>🚀 Acelerando tu Flujo de Trabajo: Alias y Comportamiento por Defecto</h2>
+        <p>Aquí es donde empezamos a personalizar Git para que se adapte a ti, ahorrándote pulsaciones de teclas y haciendo la información más legible.</p>
+
+        <h3>⚡ Alias: Tus comandos rápidos personales</h3>
+        <p>Los alias son atajos para comandos largos. Son increíblemente útiles para las acciones que realizas a diario.</p>
+        <pre><code>git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.st status
+git config --global alias.ci commit
+git config --global alias.unstage 'reset HEAD --'
+git config --global alias.last 'log -1 HEAD'</code></pre>
+
+        <div class="tip">
+            <strong>💡 Pro tip:</strong> El alias más poderoso suele ser uno para un log gráfico y compacto:
+        </div>
+        <pre><code>git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"</code></pre>
+        <p>Ahora, <code>git lg</code> te mostrará el historial de una forma mucho más visual.</p>
+
+        <h3>🔄 Comportamiento al hacer pull:</h3>
+        <pre><code>git config --global pull.rebase true</code></pre>
+        <p>La opción <code>pull.rebase</code> cambia la forma en que Git integra los cambios remotos. Prefiere <code>rebase</code> a <code>merge</code> para mantener un historial más lineal y limpio.</p>
+
+        <h3>🎨 Color para una mejor legibilidad:</h3>
+        <pre><code>git config --global color.ui auto</code></pre>
+        <p>Activar el color por defecto hace que las salidas de comandos como <code>git status</code> y <code>git diff</code> sean mucho más fáciles de interpretar de un vistazo.</p>
+
+        <h2>🔧 Robustez y Mantenimiento: Preparándose para el Futuro</h2>
+        <p>Estas configuraciones previenen problemas comunes y sientan las bases para un trabajo más profesional y sin sorpresas desagradables.</p>
+
+        <h3>🌿 Nombre de la rama inicial:</h3>
+        <pre><code>git config --global init.defaultBranch main</code></pre>
+
+        <h3>🖥️ Manejo de saltos de línea (autocrlf):</h3>
+        <div class="command-section">
+            <p><strong>En Windows:</strong></p>
+            <pre><code>git config --global core.autocrlf true</code></pre>
+            <p><strong>En macOS/Linux:</strong></p>
+            <pre><code>git config --global core.autocrlf input</code></pre>
+        </div>
+
+        <h3>🔠 Sensibilidad a mayúsculas en nombres de archivo:</h3>
+        <pre><code>git config --global core.ignorecase false</code></pre>
+
+        <h3>📄 Un excludesfile global:</h3>
+        <p>Te permite definir un archivo con patrones de exclusión que se aplicarán a <strong>todos</strong> tus repositorios.</p>
+        <pre><code># Crea el archivo (si no existe)
+touch ~/.gitignore_global
+
+# Añade patrones comunes, por ejemplo:
+echo ".DS_Store" >> ~/.gitignore_global
+echo "*.swp" >> ~/.gitignore_global
+echo "*.log" >> ~/.gitignore_global
+
+# Indica a Git que lo use
+git config --global core.excludesfile ~/.gitignore_global</code></pre>
+
+        <h3>🔄 Resolución de conflictos con rerere:</h3>
+        <div class="tip">
+            <strong>🎯 Funcionalidad secreta:</strong> "Reuse Recorded Resolution" - Una de las más útiles y menos conocidas.
+        </div>
+        <pre><code>git config --global rerere.enabled true</code></pre>
+        <p>Cuando está activada, Git recuerda cómo resolviste un conflicto de fusión y, si vuelve a aparecer el mismo conflicto, lo resuelve automáticamente por ti.</p>
+
+        <h2>🔐 Conectando con el Mundo: Autenticación y Sincronización</h2>
+
+        <h3>🔑 Caché de credenciales para HTTPS:</h3>
+        <pre><code># Almacena en caché por 1 hora (3600 segundos)
+git config --global credential.helper 'cache --timeout=3600'</code></pre>
+
+        <p>Para una solución más permanente y segura:</p>
+        <ul>
+            <li><strong>macOS:</strong> <code>git config --global credential.helper osxkeychain</code></li>
+            <li><strong>Windows:</strong> Git Credential Manager (incluido en el instalador)</li>
+            <li><strong>Linux:</strong> libsecret o gnome-keyring</li>
+        </ul>
+
+        <h3>🔒 La opción profesional: Autenticación por SSH</h3>
+        <pre><code># 1. Genera tu clave SSH
+ssh-keygen -t ed25519 -C "tu-email@ejemplo.com"
+
+# 2. Añade la clave a tu agente SSH
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519</code></pre>
+
+        <div class="note">
+            <strong>📝 Paso 3:</strong> Copia el contenido de tu clave pública con <code>cat ~/.ssh/id_ed25519.pub</code> y añádela en GitHub (Settings > SSH and GPG keys > New SSH key).
+        </div>
+
+        <h2>📦 Ejemplo de un Archivo .gitconfig Completo</h2>
+        <p>Después de todos estos comandos, tu archivo de configuración global (<code>~/.gitconfig</code>) se verá similar a esto:</p>
+        <pre><code>[user]
+    name = Tu Nombre Completo
+    email = tu-email@ejemplo.com
+[core]
+    editor = code --wait
+    excludesfile = /Users/tu_usuario/.gitignore_global
+    autocrlf = input
+    ignorecase = false
+[color]
+    ui = auto
+[init]
+    defaultBranch = main
+[pull]
+    rebase = true
+[rerere]
+    enabled = true
+[alias]
+    co = checkout
+    br = branch
+    st = status
+    ci = commit
+    unstage = reset HEAD --
+    last = log -1 HEAD
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[credential]
+    helper = cache --timeout=3600</code></pre>
+
+        <h2>📊 Resumen de Comandos Rápidos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Categoría</th>
+                    <th>Objetivo</th>
+                    <th>Comando de Configuración Global</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Identidad</strong></td>
+                    <td>Tu nombre para los commits</td>
+                    <td><code>git config --global user.name "Tu Nombre"</code></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Tu email para los commits</td>
+                    <td><code>git config --global user.email "tu@email.com"</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Editor</strong></td>
+                    <td>Editor por defecto (VS Code)</td>
+                    <td><code>git config --global core.editor "code --wait"</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Alias</strong></td>
+                    <td>Atajo para status</td>
+                    <td><code>git config --global alias.st status</code></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Log gráfico compacto</td>
+                    <td><code>git config --global alias.lg "log --graph..."</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Comportamiento</strong></td>
+                    <td>Rama por defecto main</td>
+                    <td><code>git config --global init.defaultBranch main</code></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Usar rebase al hacer pull</td>
+                    <td><code>git config --global pull.rebase true</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Robustez</strong></td>
+                    <td>Normalizar saltos de línea (macOS/Linux)</td>
+                    <td><code>git config --global core.autocrlf input</code></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Ignorar archivos globalmente</td>
+                    <td><code>git config --global core.excludesfile ~/.gitignore_global</code></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>Recordar resoluciones de conflictos</td>
+                    <td><code>git config --global rerere.enabled true</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Autenticación</strong></td>
+                    <td>Caché de credenciales (1 hora)</td>
+                    <td><code>git config --global credential.helper 'cache --timeout=3600'</code></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <div class="warning">
+            <strong>⚠️ Importante:</strong> Configurar Git en profundidad es una inversión que merece la pena. Implementa estos cambios de uno en uno, pruébalos y ajústalos a tu gusto personal.
+        </div>
+
+        <div class="tip">
+            <strong>💡 Recomendación final:</strong> La mejor configuración es la que se adapta a tu flujo de trabajo. No dudes en experimentar y ajustar estos valores según tus necesidades específicas.
+        </div>
+
+        <div class="footer">
+            <p>Guía de Configuración Profunda de Git - Documentación completa para desarrolladores</p>
+            <p style="margin-top: 10px;">⚡ Optimizado para eficiencia y productividad</p>
+        </div>
+    </div>
+</body>
+</html>
