@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Command Cheat Sheet - Resumen de Comandos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #24292e 0%, #2c3e50 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            border-bottom: 5px solid #f14e32;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header h1 span {
+            color: #f14e32;
+            font-weight: 800;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .git-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            border-radius: 50%;
+            border: 3px solid #f14e32;
+        }
+
+        /* Navegación rápida */
+        .quick-nav {
+            background: #f8f9fa;
+            padding: 20px;
+            border-bottom: 2px solid #e9ecef;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .quick-nav ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            list-style: none;
+        }
+
+        .quick-nav a {
+            background: white;
+            color: #333;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .quick-nav a:hover {
+            background: #f14e32;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(241, 78, 50, 0.3);
+        }
+
+        /* Contenido principal */
+        .content {
+            padding: 30px;
+        }
+
+        /* Secciones */
+        .section {
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border-left: 5px solid #f14e32;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e9ecef;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h2::before {
+            content: attr(data-icon);
+            font-size: 1.5em;
+        }
+
+        .section h3 {
+            color: #34495e;
+            margin: 20px 0 15px 0;
+            font-size: 1.3em;
+            padding-left: 10px;
+            border-left: 4px solid #f14e32;
+        }
+
+        /* Grid de comandos */
+        .commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .command-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid #e9ecef;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .command-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: #f14e32;
+        }
+
+        .command {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 12px;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95em;
+            margin: 10px 0;
+            border-left: 4px solid #f14e32;
+            white-space: nowrap;
+            overflow-x: auto;
+        }
+
+        .description {
+            color: #666;
+            font-size: 0.95em;
+            margin-top: 8px;
+            padding-left: 5px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #f14e32;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        /* Tablas */
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            font-weight: 600;
+            padding: 15px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: #f8f9fa;
+        }
+
+        .code {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+        }
+
+        /* Notas y tips */
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .tip {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .warning {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        /* Flujo visual */
+        .flow-diagram {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 15px;
+            color: white;
+            margin: 20px 0;
+        }
+
+        .flow-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .flow-step {
+            background: rgba(255,255,255,0.2);
+            padding: 15px 25px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            font-weight: 600;
+        }
+
+        .flow-arrow {
+            font-size: 1.5em;
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Footer */
+        .footer {
+            background: #24292e;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+            opacity: 0.8;
+        }
+
+        .footer a {
+            color: #f14e32;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .quick-nav ul {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .quick-nav a {
+                display: block;
+                text-align: center;
+            }
+            
+            .commands-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .flow-steps {
+                flex-direction: column;
+            }
+            
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+
+        /* Scroll personalizado */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #f14e32;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c43e28;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .print-only {
+            display: none;
+        }
+
+        @media print {
+            .quick-nav, .footer, .git-icon {
+                display: none;
+            }
+            
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+            
+            .command-card {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="git-icon">⚡</div>
+            <h1>Git <span>Command Cheat Sheet</span></h1>
+            <p>Referencia rápida de comandos Git para el día a día</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Versión 2.0 | Actualizado 2024</p>
+        </div>
+
+        <div class="quick-nav">
+            <ul>
+                <li><a href="#config">⚙️ Config</a></li>
+                <li><a href="#repos">📂 Repos</a></li>
+                <li><a href="#basic">📝 Básicos</a></li>
+                <li><a href="#branches">🌿 Ramas</a></li>
+                <li><a href="#remote">🌐 Remotos</a></li>
+                <li><a href="#undo">💾 Deshacer</a></li>
+                <li><a href="#log">📜 Logs</a></li>
+                <li><a href="#tags">🏷️ Tags</a></li>
+                <li><a href="#stash">📦 Stash</a></li>
+                <li><a href="#aliases">⚡ Alias</a></li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <!-- CONFIGURACIÓN -->
+            <section id="config" class="section">
+                <h2 data-icon="⚙️">Configuración Inicial</h2>
+                
+                <h3>Identidad del usuario</h3>
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command">git config --global user.name "Tu Nombre"</div>
+                        <div class="description">Configurar nombre para todos los repositorios</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git config --global user.email "tu@email.com"</div>
+                        <div class="description">Configurar email para todos los repositorios</div>
+                    </div>
+                </div>
+
+                <h3>Configuraciones útiles</h3>
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command">git config --global core.editor "code --wait"</div>
+                        <div class="description">Editor por defecto (VS Code)</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git config --global color.ui auto</div>
+                        <div class="description">Colores en las salidas</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git config --global init.defaultBranch main</div>
+                        <div class="description">Rama por defecto 'main'</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git config --global pull.rebase true</div>
+                        <div class="description">Preferir rebase al hacer pull</div>
+                    </div>
+                </div>
+
+                <h3>Ver configuraciones</h3>
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command">git config --list</div>
+                        <div class="description">Ver toda la configuración</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git config user.name</div>
+                        <div class="description">Ver un valor específico</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- REPOSITORIOS -->
+            <section id="repos" class="section">
+                <h2 data-icon="📂">Crear y Clonar Repositorios</h2>
+                
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command">git init</div>
+                        <div class="description">Iniciar repositorio en carpeta actual</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git init nombre-proyecto</div>
+                        <div class="description">Crear carpeta e iniciar repositorio</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git clone https://github.com/...git</div>
+                        <div class="description">Clonar con HTTPS</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git clone git@github.com:...git</div>
+                        <div class="description">Clonar con SSH</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- COMANDOS BÁSICOS -->
+            <section id="basic" class="section">
+                <h2 data-icon="📝">Comandos Básicos</h2>
+                
+                <h3>Ver estado</h3>
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command">git status</div>
+                        <div class="description">Ver archivos modificados</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git status -s</div>
+                        <div class="description">Formato corto</div>
+                    </div>
+                </div>
+
+                <h3>Añadir archivos (staging)</h3>
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command">git add archivo.txt</div>
+                        <div class="description">Añadir un archivo específico</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git add .</div>
+                        <div class="description">Añadir todos los archivos</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git add *.js</div>
+                        <div class="description">Añadir todos los archivos .js</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git add -p</div>
+                        <div class="description">Añadir por partes (interactivo)</div>
+                    </div>
+                </div>
+
+                <h3>Quitar archivos del staging</h3>
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command">git reset archivo.txt</div>
+                        <div class="description">Quitar del staging (mantiene cambios)</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git reset</div>
+                        <div class="description">Quitar todo del staging</div>
+                    </div>
+                </div>
+
+                <h3>Confirmar cambios (commits)</h3>
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command">git commit -m "mensaje"</div>
+                        <div class="description">Commit con mensaje</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git commit</div>
+                        <div class="description">Abrir editor para mensaje</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git commit -am "mensaje"</div>
+                        <div class="description">Añadir y confirmar (solo trackeados)</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git commit --amend -m "nuevo"</div>
+                        <div class="description">Corregir último commit</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RAMAS -->
+            <section id="branches" class="section">
+                <h2 data-icon="🌿">Ramas (Branches)</h2>
+                
+                <h3>Gestionar ramas</h3>
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command">git branch</div>
+                        <div class="description">Listar ramas locales</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git branch -a</div>
+                        <div class="description">Listar todas (locales + remotas)</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git branch nueva-rama</div>
+                        <div class="description">Crear nueva rama</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git branch -m nuevo-nombre</div>
+                        <div class="description">Renombrar rama actual</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git branch -d rama</div>
+                        <div class="description">Eliminar rama (seguro)</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git branch -D rama</div>
+                        <div class="description">Eliminar rama (forzado)</div>
+                    </div>
+                </div>
+
+                <h3>Cambiar de rama</h3>
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command">git checkout rama</div>
+                        <div class="description">Cambiar a otra rama</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git checkout -b nueva</div>
+                        <div class="description">Crear y cambiar a nueva rama</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git switch rama</div>
+                        <div class="description">Alternativa moderna a checkout</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git switch -c nueva</div>
+                        <div class="description">Crear y cambiar (moderno)</div>
+                    </div>
+                </div>
+
+                <h3>Fusionar ramas</h3>
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command">git merge rama</div>
+                        <div class="description">Fusionar rama a la actual</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git merge --abort</div>
+                        <div class="description">Cancelar fusión con conflictos</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git rebase rama-base</div>
+                        <div class="description">Reorganizar commits</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- REPOSITORIOS REMOTOS -->
+            <section id="remote" class="section">
+                <h2 data-icon="🌐">Repositorios Remotos</h2>
+                
+                <h3>Gestionar remotos</h3>
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command">git remote -v</div>
+                        <div class="description">Ver repositorios remotos</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git remote add origin URL</div>
+                        <div class="description">Añadir remoto</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git remote remove origin</div>
+                        <div class="description">Eliminar remoto</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git remote rename origin upstream</div>
+                        <div class="description">Renombrar remoto</div>
+                    </div>
+                </div>
+
+                <h3>Subir cambios (push)</h3>
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command">git push origin rama</div>
+                        <div class="description">Subir rama a remoto</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git push -u origin rama</div>
+                        <div class="description">Subir y establecer upstream</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git push --all</div>
+                        <div class="description">Subir todas las ramas</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git push origin --delete rama</div>
+                        <div class="description">Eliminar rama remota</div>
+                    </div>
+                </div>
+
+                <h3>Traer cambios (pull/fetch)</h3>
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command">git pull</div>
+                        <div class="description">Traer y fusionar cambios</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git fetch</div>
+                        <div class="description">Traer cambios SIN fusionar</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git fetch --prune</div>
+                        <div class="description">Limpiar referencias a ramas eliminadas</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DESHACER CAMBIOS -->
+            <section id="undo" class="section">
+                <h2 data-icon="💾">Deshacer Cambios</h2>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Comando</th>
+                                <th>Qué hace</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>git restore archivo</code></td>
+                                <td>Descarta cambios sin staging</td>
+                            </tr>
+                            <tr>
+                                <td><code>git restore --staged archivo</code></td>
+                                <td>Quita del staging (mantiene cambios)</td>
+                            </tr>
+                            <tr>
+                                <td><code>git reset --soft HEAD~1</code></td>
+                                <td>Deshace commit, mantiene cambios en staging</td>
+                            </tr>
+                            <tr>
+                                <td><code>git reset --mixed HEAD~1</code></td>
+                                <td>Deshace commit, mantiene cambios sin staging</td>
+                            </tr>
+                            <tr>
+                                <td><code>git reset --hard HEAD~1</code></td>
+                                <td>Deshace commit y BORRA cambios (¡cuidado!)</td>
+                            </tr>
+                            <tr>
+                                <td><code>git revert HEAD</code></td>
+                                <td>Crea nuevo commit que deshace el anterior</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="warning">
+                    <strong>⚠️ Cuidado:</strong> <code>git reset --hard</code> elimina permanentemente los cambios. Asegúrate de no perder trabajo importante.
+                </div>
+
+                <h3>Casos prácticos</h3>
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command">git checkout -- archivo.txt</div>
+                        <div class="description">Descartar cambios en archivo</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git reset HEAD archivo.txt</div>
+                        <div class="description">Quitar del staging</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git reset --hard origin/main</div>
+                        <div class="description">Resetear a estado remoto</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git clean -fd</div>
+                        <div class="description">Eliminar archivos sin trackear</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LOGS E HISTORIAL -->
+            <section id="log" class="section">
+                <h2 data-icon="📜">Logs e Historial</h2>
+                
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command">git log</div>
+                        <div class="description">Historial completo</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git log --oneline</div>
+                        <div class="description">Historial resumido (1 línea por commit)</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git log -3</div>
+                        <div class="description">Últimos 3 commits</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git log --graph</div>
+                        <div class="description">Vista gráfica de ramas</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git log --author="nombre"</div>
+                        <div class="description">Filtrar por autor</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git log --grep="texto"</div>
+                        <div class="description">Buscar en mensajes</div>
+                    </div>
+                </div>
+
+                <h3>Buscar y debug</h3>
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command">git grep "texto"</div>
+                        <div class="description">Buscar en archivos</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git blame archivo.txt</div>
+                        <div class="description">Ver quién cambió cada línea</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git diff</div>
+                        <div class="description">Cambios sin staging</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git diff --staged</div>
+                        <div class="description">Cambios en staging</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAGS -->
+            <section id="tags" class="section">
+                <h2 data-icon="🏷️">Tags (Etiquetas)</h2>
+                
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command">git tag</div>
+                        <div class="description">Listar tags</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git tag -a v1.0.0 -m "Versión 1.0.0"</div>
+                        <div class="description">Crear tag anotado</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git push origin v1.0.0</div>
+                        <div class="description">Subir tag específico</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git push --tags</div>
+                        <div class="description">Subir todos los tags</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git tag -d v1.0.0</div>
+                        <div class="description">Eliminar tag local</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STASH -->
+            <section id="stash" class="section">
+                <h2 data-icon="📦">Guardar Cambios Temporales (Stash)</h2>
+                
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command">git stash</div>
+                        <div class="description">Guardar cambios temporalmente</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git stash save "mensaje"</div>
+                        <div class="description">Guardar con mensaje</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git stash list</div>
+                        <div class="description">Ver stashes guardados</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git stash pop</div>
+                        <div class="description">Recuperar y eliminar último stash</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git stash apply</div>
+                        <div class="description">Recuperar sin eliminar</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git stash drop</div>
+                        <div class="description">Eliminar último stash</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git stash branch nueva-rama</div>
+                        <div class="description">Crear rama desde stash</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ALIAS ÚTILES -->
+            <section id="aliases" class="section">
+                <h2 data-icon="⚡">Alias Útiles (Copia y Pega)</h2>
+                
+                <div class="tip">
+                    <strong>💡 Pro tip:</strong> Estos alias te ahorrarán horas de escritura. Cópialos y ejecútalos en tu terminal.
+                </div>
+
+                <div class="command">git config --global alias.co checkout</div>
+                <div class="command">git config --global alias.br branch</div>
+                <div class="command">git config --global alias.st status</div>
+                <div class="command">git config --global alias.ci commit</div>
+                <div class="command">git config --global alias.unstage 'reset HEAD --'</div>
+                <div class="command">git config --global alias.last 'log -1 HEAD'</div>
+                <div class="command">git config --global alias.tree 'log --graph --oneline --all'</div>
+                <div class="command">git config --global alias.ll 'log --oneline --decorate'</div>
+                <div class="command">git config --global alias.uncommit 'reset --soft HEAD~1'</div>
+                <div class="command">git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"</div>
+            </section>
+
+            <!-- FLUJO VISUAL -->
+            <section class="section">
+                <h2 data-icon="🔄">Flujo de Trabajo Visual</h2>
+                
+                <div class="flow-diagram">
+                    <div class="flow-steps">
+                        <span class="flow-step">WORKING DIRECTORY</span>
+                        <span class="flow-arrow">→</span>
+                        <span class="flow-step">STAGING AREA</span>
+                        <span class="flow-arrow">→</span>
+                        <span class="flow-step">LOCAL REPO</span>
+                        <span class="flow-arrow">→</span>
+                        <span class="flow-step">REMOTE REPO</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-around; margin-top: 20px; flex-wrap: wrap;">
+                        <span style="background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 20px;">git add</span>
+                        <span style="background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 20px;">git commit</span>
+                        <span style="background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 20px;">git push</span>
+                    </div>
+                    <div style="margin-top: 20px; text-align: center;">
+                        <span style="background: rgba(255,255,255,0.1); padding: 5px 20px; border-radius: 20px;">git pull / fetch</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AYUDA -->
+            <section class="section">
+                <h2 data-icon="🆘">Ayuda</h2>
+                
+                <div class="commands-grid">
+                    <div class="command-card">
+                        <div class="command">git help</div>
+                        <div class="description">Ayuda general</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git help comando</div>
+                        <div class="description">Ayuda de comando específico</div>
+                    </div>
+                    <div class="command-card">
+                        <div class="command">git comando -h</div>
+                        <div class="description">Ayuda resumida</div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="note">
+                <strong>📌 Truco:</strong> Usa la tecla <kbd>TAB</kbd> para autocompletar comandos y nombres de ramas. Ej: <code>git sta</code> + TAB → <code>git status</code>
+            </div>
+
+            <div class="tip">
+                <strong>🎯 Resumen rápido de comandos esenciales:</strong><br>
+                <code>git status</code> - ¿Qué está pasando?<br>
+                <code>git add .</code> - Preparar todo<br>
+                <code>git commit -m "msg"</code> - Confirmar<br>
+                <code>git push</code> - Subir cambios<br>
+                <code>git pull</code> - Traer cambios<br>
+                <code>git log --oneline</code> - Ver historial<br>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>⚡ Git Command Cheat Sheet - Tu referencia rápida de comandos Git</p>
+            <p>Desarrollado para desarrolladores que quieren ser más productivos</p>
+            <p style="margin-top: 15px; font-size: 0.9em;">
+                <a href="#config">Config</a> • 
+                <a href="#basic">Básicos</a> • 
+                <a href="#branches">Ramas</a> • 
+                <a href="#remote">Remotos</a> • 
+                <a href="#undo">Deshacer</a>
+            </p>
+            <p style="margin-top: 15px; opacity: 0.6;">© 2024 - Todos los comandos que necesitas en un solo lugar</p>
+        </div>
+    </div>
+</body>
+</html>
