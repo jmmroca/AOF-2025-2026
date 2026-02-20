@@ -78,7 +78,7 @@
         /* Grid de tarjetas */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             margin: 40px 0;
         }
@@ -92,6 +92,9 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 1px solid rgba(255, 255, 255, 0.2);
             position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .card:hover {
@@ -114,16 +117,20 @@
         .card-header {
             padding: 40px 30px 20px;
             text-align: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
         }
 
+        /* Colores específicos para cada tarjeta */
         .card:nth-child(1) .card-header {
             background: linear-gradient(135deg, #f14e32 0%, #c43e28 100%);
         }
 
         .card:nth-child(2) .card-header {
             background: linear-gradient(135deg, #2c3e50 0%, #1e2a3a 100%);
+        }
+
+        .card:nth-child(3) .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
         .card-icon {
@@ -150,11 +157,15 @@
 
         .card-body {
             padding: 30px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .feature-list {
             list-style: none;
             margin-bottom: 30px;
+            flex-grow: 1;
         }
 
         .feature-list li {
@@ -183,6 +194,7 @@
         .card-footer {
             padding: 20px 30px 30px;
             text-align: center;
+            margin-top: auto;
         }
 
         .btn {
@@ -198,6 +210,8 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
+            width: 100%;
+            max-width: 250px;
         }
 
         .btn::before {
@@ -238,8 +252,19 @@
             box-shadow: 0 15px 30px rgba(44, 62, 80, 0.4);
         }
 
-        /* Sección de comparativa */
-        .comparison-section {
+        .btn-tertiary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-tertiary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Sección de bienvenida */
+        .welcome-section {
             margin-top: 60px;
             background: rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
@@ -248,41 +273,20 @@
             color: white;
             border: 1px solid rgba(255,255,255,0.2);
             animation: fadeInUp 1s ease-out;
+            text-align: center;
         }
 
-        .comparison-section h3 {
+        .welcome-section h3 {
             font-size: 2em;
-            margin-bottom: 30px;
-            text-align: center;
+            margin-bottom: 20px;
             color: #f14e32;
         }
 
-        .comparison-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-        }
-
-        .comparison-item {
-            text-align: center;
-        }
-
-        .comparison-item h4 {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            color: #ff8c5a;
-        }
-
-        .comparison-item ul {
-            list-style: none;
-        }
-
-        .comparison-item li {
-            margin-bottom: 12px;
-            padding: 8px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            border-left: 3px solid #f14e32;
+        .welcome-section p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         /* Stats section */
@@ -382,16 +386,16 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.95);
             z-index: 1000;
             overflow: auto;
         }
 
         .modal-content {
             position: relative;
-            width: 90%;
-            max-width: 1200px;
-            margin: 50px auto;
+            width: 95%;
+            max-width: 1400px;
+            margin: 30px auto;
             background: white;
             border-radius: 20px;
             padding: 20px;
@@ -415,11 +419,13 @@
             font-weight: bold;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             z-index: 1100;
+            transition: all 0.3s;
         }
 
         .modal-close:hover {
             background: #f14e32;
             color: white;
+            transform: rotate(90deg);
         }
 
         .modal-iframe {
@@ -427,30 +433,6 @@
             height: 80vh;
             border: none;
             border-radius: 10px;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .main-header h1 {
-                font-size: 2.5em;
-            }
-            
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .comparison-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .stats-section {
-                gap: 30px;
-            }
-            
-            .stat-number {
-                font-size: 2em;
-            }
         }
 
         /* Tooltip */
@@ -474,11 +456,67 @@
             margin-left: -60px;
             opacity: 0;
             transition: opacity 0.3s;
+            font-size: 0.8em;
         }
 
         .tooltip:hover .tooltiptext {
             visibility: visible;
             opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-header h1 {
+                font-size: 2.5em;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-section {
+                gap: 30px;
+            }
+            
+            .stat-number {
+                font-size: 2em;
+            }
+            
+            .modal-content {
+                width: 100%;
+                margin: 0;
+                border-radius: 0;
+                height: 100vh;
+            }
+            
+            .modal-iframe {
+                height: 90vh;
+            }
+            
+            .modal-close {
+                top: 10px;
+                right: 10px;
+            }
+        }
+
+        /* Loading spinner */
+        .loading {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #f14e32;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
     </style>
 </head>
@@ -488,12 +526,38 @@
         <div class="main-header">
             <div class="git-icon">⚡</div>
             <h1>GitHub Resources</h1>
-            <p>Centro de recursos para dominar Git • Documentación completa y referencia rápida</p>
+            <p>Centro de recursos para dominar Git • Documentación completa • Guías • Referencias rápidas</p>
         </div>
 
-        <!-- Grid de tarjetas principales -->
+        <!-- Grid de tarjetas principales (AHORA CON 3 TARJETAS) -->
         <div class="cards-grid">
-            <!-- Tarjeta 1: Configuración Profunda -->
+            <!-- Tarjeta 1: ¿Qué es Git? (NUEVA) -->
+            <div class="card" data-aos="fade-right">
+                <div class="card-header">
+                    <div class="card-icon">🎯</div>
+                    <h2>¿Qué es Git?</h2>
+                    <span class="badge">Introducción</span>
+                </div>
+                <div class="card-body">
+                    <ul class="feature-list">
+                        <li>Conceptos fundamentales explicados</li>
+                        <li>Analogía del libro para entenderlo fácil</li>
+                        <li>Aplicaciones reales en empresas</li>
+                        <li>Casos de éxito: NASA, Netflix, Twitter</li>
+                        <li>Comparativa antes/después de Git</li>
+                        <li>Ejemplos prácticos y comandos básicos</li>
+                        <li>Estadísticas y datos curiosos</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <a href="#" onclick="openModal('que-es-git.html')" class="btn btn-tertiary tooltip">
+                        📖 Ver Introducción
+                        <span class="tooltiptext">Aprende qué es Git</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tarjeta 2: Configuración Profunda -->
             <div class="card" data-aos="fade-right">
                 <div class="card-header">
                     <div class="card-icon">🔧</div>
@@ -512,13 +576,13 @@
                 </div>
                 <div class="card-footer">
                     <a href="#" onclick="openModal('configuracion-git.html')" class="btn btn-primary tooltip">
-                        📖 Ver Guía Completa
-                        <span class="tooltiptext">Abrir documentación</span>
+                        🔧 Ver Guía Completa
+                        <span class="tooltiptext">Abrir documentación avanzada</span>
                     </a>
                 </div>
             </div>
 
-            <!-- Tarjeta 2: Resumen de Comandos -->
+            <!-- Tarjeta 3: Resumen de Comandos -->
             <div class="card" data-aos="fade-left">
                 <div class="card-header">
                     <div class="card-icon">📋</div>
@@ -538,62 +602,48 @@
                 <div class="card-footer">
                     <a href="#" onclick="openModal('resumen-comandos.html')" class="btn btn-secondary tooltip">
                         ⚡ Ver Cheat Sheet
-                        <span class="tooltiptext">Abrir referencia rápida</span>
+                        <span class="tooltiptext">Ver referencia rápida</span>
                     </a>
                 </div>
             </div>
         </div>
 
-        <!-- Sección de comparativa -->
-        <div class="comparison-section">
-            <h3>📊 ¿Qué necesitas hoy?</h3>
-            <div class="comparison-grid">
-                <div class="comparison-item">
-                    <h4>🔧 Configuración Profunda</h4>
-                    <ul>
-                        <li>✅ Para cuando empiezas desde cero</li>
-                        <li>✅ Optimizar tu entorno de trabajo</li>
-                        <li>✅ Configuraciones avanzadas</li>
-                        <li>✅ Autenticación SSH y seguridad</li>
-                    </ul>
-                </div>
-                <div class="comparison-item">
-                    <h4>⚡ Command Cheat Sheet</h4>
-                    <ul>
-                        <li>✅ Para consulta rápida diaria</li>
-                        <li>✅ Referencia de comandos</li>
-                        <li>✅ Solucionar problemas concretos</li>
-                        <li>✅ Aprender nuevos comandos</li>
-                    </ul>
-                </div>
-            </div>
+        <!-- Sección de bienvenida actualizada -->
+        <div class="welcome-section">
+            <h3>🚀 Tu viaje con Git comienza aquí</h3>
+            <p>Git es el sistema de control de versiones más utilizado del mundo. Ya sea que estés empezando o quieras profundizar, aquí encontrarás todo lo que necesitas: desde los conceptos básicos hasta configuraciones avanzadas y una referencia rápida de comandos.</p>
         </div>
 
-        <!-- Stats section -->
+        <!-- Stats section actualizada -->
         <div class="stats-section">
             <div class="stat-item">
-                <div class="stat-number">2</div>
+                <div class="stat-number">3</div>
                 <div class="stat-label">Guías completas</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number">100+</div>
+                <div class="stat-number">150+</div>
                 <div class="stat-label">Comandos explicados</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number">10+</div>
+                <div class="stat-number">15+</div>
                 <div class="stat-label">Categorías</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">2005</div>
+                <div class="stat-label">Año creación Git</div>
             </div>
         </div>
 
-        <!-- Footer -->
+        <!-- Footer actualizado -->
         <div class="main-footer">
             <p>Git - Sistema de control de versiones moderno y eficiente</p>
             <p style="margin-top: 10px;">
+                <a href="#" onclick="openModal('que-es-git.html')">¿Qué es Git?</a> • 
                 <a href="#" onclick="openModal('configuracion-git.html')">Configuración</a> • 
                 <a href="#" onclick="openModal('resumen-comandos.html')">Comandos</a> • 
-                <a href="#">Documentación oficial</a>
+                <a href="https://git-scm.com" target="_blank">Web oficial</a>
             </p>
-            <p style="margin-top: 20px; opacity: 0.5;">© 2024 - Centro de Recursos Git</p>
+            <p style="margin-top: 20px; opacity: 0.5;">© 2024 - Centro de Recursos Git • Documentación completa para desarrolladores</p>
         </div>
     </div>
 
@@ -601,18 +651,31 @@
     <div id="contentModal" class="modal" onclick="closeModalOnClickOutside(event)">
         <div class="modal-content">
             <span class="modal-close" onclick="closeModal()">&times;</span>
-            <iframe id="modalIframe" class="modal-iframe" src=""></iframe>
+            <div class="loading" id="loadingSpinner"></div>
+            <iframe id="modalIframe" class="modal-iframe" src="" onload="hideSpinner()"></iframe>
         </div>
     </div>
 
     <script>
+        // Mostrar spinner
+        function showSpinner() {
+            document.getElementById('loadingSpinner').style.display = 'block';
+        }
+
+        // Ocultar spinner
+        function hideSpinner() {
+            document.getElementById('loadingSpinner').style.display = 'none';
+        }
+
         // Abrir modal con el contenido seleccionado
         function openModal(page) {
             const modal = document.getElementById('contentModal');
             const iframe = document.getElementById('modalIframe');
             
-            // Construir la ruta completa (asumiendo que los archivos están en el mismo directorio)
+            // Construir la ruta completa
             const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+            
+            showSpinner();
             iframe.src = basePath + page;
             
             modal.style.display = 'block';
@@ -627,6 +690,7 @@
             modal.style.display = 'none';
             iframe.src = ''; // Limpiar src para detener la carga
             document.body.style.overflow = 'auto'; // Restaurar scroll
+            hideSpinner();
         }
 
         // Cerrar modal si se hace click fuera del contenido
@@ -669,21 +733,15 @@
             });
         });
 
-        // Detectar si los archivos existen
+        // Verificar que los archivos existen
         function checkFiles() {
-            const files = ['configuracion-git.html', 'resumen-comandos.html'];
+            const files = ['que-es-git.html', 'configuracion-git.html', 'resumen-comandos.html'];
             files.forEach(file => {
                 fetch(file, { method: 'HEAD' })
                     .then(response => {
                         if (!response.ok) {
                             console.warn(`⚠️ Archivo no encontrado: ${file}`);
-                            // Mostrar advertencia visual
-                            const cards = document.querySelectorAll('.card');
-                            if (file.includes('config')) {
-                                cards[0].style.border = '2px solid orange';
-                            } else {
-                                cards[1].style.border = '2px solid orange';
-                            }
+                            // Mostrar advertencia visual en la consola
                         }
                     })
                     .catch(() => {
@@ -694,11 +752,20 @@
 
         // Ejecutar verificación
         checkFiles();
+
+        // Precargar el primer iframe para mejor experiencia
+        window.addEventListener('load', function() {
+            // Opcional: precargar recursos
+            const linkPrefetch = document.createElement('link');
+            linkPrefetch.rel = 'prefetch';
+            linkPrefetch.href = 'que-es-git.html';
+            document.head.appendChild(linkPrefetch);
+        });
     </script>
 
-    <!-- Nota informativa si los archivos no están en el mismo directorio -->
+    <!-- Nota informativa (oculta pero disponible) -->
     <div style="display: none;" id="fileNote">
-        <p>⚠️ Asegúrate de que los archivos 'configuracion-git.html' y 'resumen-comandos.html' estén en el mismo directorio que este archivo.</p>
+        <p>⚠️ Asegúrate de que los archivos 'que-es-git.html', 'configuracion-git.html' y 'resumen-comandos.html' estén en el mismo directorio que este archivo.</p>
     </div>
 </body>
 </html>
