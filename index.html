@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub - Centro de Recursos Git</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Fondo con efecto de partículas */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.05"><path fill="white" d="M50 15 L61 35 L84 39 L69 57 L72 82 L50 72 L28 82 L31 57 L16 39 L39 35 Z"/></svg>') repeat;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Header principal */
+        .main-header {
+            text-align: center;
+            margin-bottom: 60px;
+            color: white;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .main-header h1 {
+            font-size: 4em;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, #f14e32, #ff8c5a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .main-header .git-icon {
+            font-size: 5em;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        .main-header p {
+            font-size: 1.3em;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 20px auto 0;
+            line-height: 1.6;
+            color: #e0e0e0;
+        }
+
+        /* Grid de tarjetas */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-20px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(241, 78, 50, 0.3);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #f14e32, #ff8c5a, #f14e32);
+            background-size: 200% 100%;
+            animation: gradientMove 3s linear infinite;
+        }
+
+        .card-header {
+            padding: 40px 30px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .card:nth-child(1) .card-header {
+            background: linear-gradient(135deg, #f14e32 0%, #c43e28 100%);
+        }
+
+        .card:nth-child(2) .card-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #1e2a3a 100%);
+        }
+
+        .card-icon {
+            font-size: 4em;
+            margin-bottom: 15px;
+            filter: drop-shadow(2px 4px 6px black);
+        }
+
+        .card-header h2 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .card-header .badge {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 0.9em;
+            display: inline-block;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .feature-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            color: #f14e32;
+            font-weight: bold;
+            font-size: 1.2em;
+            background: #fff0ed;
+            width: 25px;
+            height: 25px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .card-footer {
+            padding: 20px 30px 30px;
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #f14e32, #ff8c5a);
+            color: white;
+            box-shadow: 0 10px 20px rgba(241, 78, 50, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(241, 78, 50, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            box-shadow: 0 10px 20px rgba(44, 62, 80, 0.3);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(44, 62, 80, 0.4);
+        }
+
+        /* Sección de comparativa */
+        .comparison-section {
+            margin-top: 60px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 40px;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .comparison-section h3 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #f14e32;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        .comparison-item {
+            text-align: center;
+        }
+
+        .comparison-item h4 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #ff8c5a;
+        }
+
+        .comparison-item ul {
+            list-style: none;
+        }
+
+        .comparison-item li {
+            margin-bottom: 12px;
+            padding: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            border-left: 3px solid #f14e32;
+        }
+
+        /* Stats section */
+        .stats-section {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: #f14e32;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        /* Footer */
+        .main-footer {
+            margin-top: 80px;
+            text-align: center;
+            color: white;
+            opacity: 0.7;
+            font-size: 0.9em;
+        }
+
+        .main-footer a {
+            color: #f14e32;
+            text-decoration: none;
+        }
+
+        .main-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Animaciones */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 200% 50%;
+            }
+        }
+
+        /* Modal para vista previa */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            overflow: auto;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 1200px;
+            margin: 50px auto;
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2em;
+            color: #f14e32;
+            cursor: pointer;
+            background: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1100;
+        }
+
+        .modal-close:hover {
+            background: #f14e32;
+            color: white;
+        }
+
+        .modal-iframe {
+            width: 100%;
+            height: 80vh;
+            border: none;
+            border-radius: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-header h1 {
+                font-size: 2.5em;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .stats-section {
+                gap: 30px;
+            }
+            
+            .stat-number {
+                font-size: 2em;
+            }
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 5px;
+            border-radius: 6px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header principal -->
+        <div class="main-header">
+            <div class="git-icon">⚡</div>
+            <h1>GitHub Resources</h1>
+            <p>Centro de recursos para dominar Git • Documentación completa y referencia rápida</p>
+        </div>
+
+        <!-- Grid de tarjetas principales -->
+        <div class="cards-grid">
+            <!-- Tarjeta 1: Configuración Profunda -->
+            <div class="card" data-aos="fade-right">
+                <div class="card-header">
+                    <div class="card-icon">🔧</div>
+                    <h2>Configuración Profunda</h2>
+                    <span class="badge">Guía Avanzada</span>
+                </div>
+                <div class="card-body">
+                    <ul class="feature-list">
+                        <li>Configuración de identidad y editor</li>
+                        <li>Alias personalizados para acelerar tu flujo</li>
+                        <li>Manejo de saltos de línea (autocrlf)</li>
+                        <li>Excludesfile global para todos tus repos</li>
+                        <li>Autenticación SSH y gestión de credenciales</li>
+                        <li>Archivo .gitconfig completo explicado</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <a href="#" onclick="openModal('configuracion-git.html')" class="btn btn-primary tooltip">
+                        📖 Ver Guía Completa
+                        <span class="tooltiptext">Abrir documentación</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tarjeta 2: Resumen de Comandos -->
+            <div class="card" data-aos="fade-left">
+                <div class="card-header">
+                    <div class="card-icon">📋</div>
+                    <h2>Command Cheat Sheet</h2>
+                    <span class="badge">Referencia Rápida</span>
+                </div>
+                <div class="card-body">
+                    <ul class="feature-list">
+                        <li>Más de 80 comandos organizados por categorías</li>
+                        <li>Configuración, básicos, ramas y remotos</li>
+                        <li>Tabla comparativa de comandos para deshacer</li>
+                        <li>Stash, tags y logs explicados</li>
+                        <li>Alias útiles listos para copiar y pegar</li>
+                        <li>Diagrama visual del flujo de trabajo</li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <a href="#" onclick="openModal('resumen-comandos.html')" class="btn btn-secondary tooltip">
+                        ⚡ Ver Cheat Sheet
+                        <span class="tooltiptext">Abrir referencia rápida</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de comparativa -->
+        <div class="comparison-section">
+            <h3>📊 ¿Qué necesitas hoy?</h3>
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <h4>🔧 Configuración Profunda</h4>
+                    <ul>
+                        <li>✅ Para cuando empiezas desde cero</li>
+                        <li>✅ Optimizar tu entorno de trabajo</li>
+                        <li>✅ Configuraciones avanzadas</li>
+                        <li>✅ Autenticación SSH y seguridad</li>
+                    </ul>
+                </div>
+                <div class="comparison-item">
+                    <h4>⚡ Command Cheat Sheet</h4>
+                    <ul>
+                        <li>✅ Para consulta rápida diaria</li>
+                        <li>✅ Referencia de comandos</li>
+                        <li>✅ Solucionar problemas concretos</li>
+                        <li>✅ Aprender nuevos comandos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats section -->
+        <div class="stats-section">
+            <div class="stat-item">
+                <div class="stat-number">2</div>
+                <div class="stat-label">Guías completas</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100+</div>
+                <div class="stat-label">Comandos explicados</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">10+</div>
+                <div class="stat-label">Categorías</div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="main-footer">
+            <p>Git - Sistema de control de versiones moderno y eficiente</p>
+            <p style="margin-top: 10px;">
+                <a href="#" onclick="openModal('configuracion-git.html')">Configuración</a> • 
+                <a href="#" onclick="openModal('resumen-comandos.html')">Comandos</a> • 
+                <a href="#">Documentación oficial</a>
+            </p>
+            <p style="margin-top: 20px; opacity: 0.5;">© 2024 - Centro de Recursos Git</p>
+        </div>
+    </div>
+
+    <!-- Modal para mostrar los contenidos -->
+    <div id="contentModal" class="modal" onclick="closeModalOnClickOutside(event)">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">&times;</span>
+            <iframe id="modalIframe" class="modal-iframe" src=""></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Abrir modal con el contenido seleccionado
+        function openModal(page) {
+            const modal = document.getElementById('contentModal');
+            const iframe = document.getElementById('modalIframe');
+            
+            // Construir la ruta completa (asumiendo que los archivos están en el mismo directorio)
+            const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+            iframe.src = basePath + page;
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevenir scroll del body
+        }
+
+        // Cerrar modal
+        function closeModal() {
+            const modal = document.getElementById('contentModal');
+            const iframe = document.getElementById('modalIframe');
+            
+            modal.style.display = 'none';
+            iframe.src = ''; // Limpiar src para detener la carga
+            document.body.style.overflow = 'auto'; // Restaurar scroll
+        }
+
+        // Cerrar modal si se hace click fuera del contenido
+        function closeModalOnClickOutside(event) {
+            const modal = document.getElementById('contentModal');
+            const modalContent = document.querySelector('.modal-content');
+            
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Cerrar modal con tecla ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Añadir animación de entrada a las tarjetas
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.animation = `fadeInUp 0.5s ease-out ${index * 0.2}s forwards`;
+                card.style.opacity = '0';
+            });
+        });
+
+        // Smooth scroll para los enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Detectar si los archivos existen
+        function checkFiles() {
+            const files = ['configuracion-git.html', 'resumen-comandos.html'];
+            files.forEach(file => {
+                fetch(file, { method: 'HEAD' })
+                    .then(response => {
+                        if (!response.ok) {
+                            console.warn(`⚠️ Archivo no encontrado: ${file}`);
+                            // Mostrar advertencia visual
+                            const cards = document.querySelectorAll('.card');
+                            if (file.includes('config')) {
+                                cards[0].style.border = '2px solid orange';
+                            } else {
+                                cards[1].style.border = '2px solid orange';
+                            }
+                        }
+                    })
+                    .catch(() => {
+                        console.warn(`⚠️ Error al verificar: ${file}`);
+                    });
+            });
+        }
+
+        // Ejecutar verificación
+        checkFiles();
+    </script>
+
+    <!-- Nota informativa si los archivos no están en el mismo directorio -->
+    <div style="display: none;" id="fileNote">
+        <p>⚠️ Asegúrate de que los archivos 'configuracion-git.html' y 'resumen-comandos.html' estén en el mismo directorio que este archivo.</p>
+    </div>
+</body>
+</html>
