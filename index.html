@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,7 +53,7 @@
             font-size: 4em;
             font-weight: 800;
             margin-bottom: 10px;
-            text-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+            text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
             background: linear-gradient(135deg, #f14e32, #ff8c5a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -79,7 +80,7 @@
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            gap: 25px;
             margin: 40px 0;
         }
 
@@ -146,13 +147,13 @@
         }
 
         .card-header .badge {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             padding: 5px 15px;
             border-radius: 30px;
             font-size: 0.9em;
             display: inline-block;
             backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .card-body {
@@ -221,7 +222,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             transition: left 0.5s;
             z-index: -1;
         }
@@ -266,12 +267,12 @@
         /* Sección de bienvenida */
         .welcome-section {
             margin-top: 60px;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border-radius: 30px;
             padding: 40px;
             color: white;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             animation: fadeInUp 1s ease-out;
             text-align: center;
         }
@@ -307,7 +308,7 @@
             font-size: 2.5em;
             font-weight: 800;
             color: #f14e32;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .stat-label {
@@ -340,6 +341,7 @@
                 opacity: 0;
                 transform: translateY(-30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -351,6 +353,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -358,12 +361,19 @@
         }
 
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
                 transform: translateY(0);
             }
+
             40% {
                 transform: translateY(-30px);
             }
+
             60% {
                 transform: translateY(-15px);
             }
@@ -373,6 +383,7 @@
             0% {
                 background-position: 0% 50%;
             }
+
             100% {
                 background-position: 200% 50%;
             }
@@ -386,7 +397,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.95);
+            background: rgba(0, 0, 0, 0.95);
             z-index: 1000;
             overflow: auto;
         }
@@ -399,7 +410,7 @@
             background: white;
             border-radius: 20px;
             padding: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
         .modal-close {
@@ -417,7 +428,7 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             z-index: 1100;
             transition: all 0.3s;
         }
@@ -469,30 +480,30 @@
             .main-header h1 {
                 font-size: 2.5em;
             }
-            
+
             .cards-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .stats-section {
                 gap: 30px;
             }
-            
+
             .stat-number {
                 font-size: 2em;
             }
-            
+
             .modal-content {
                 width: 100%;
                 margin: 0;
                 border-radius: 0;
                 height: 100vh;
             }
-            
+
             .modal-iframe {
                 height: 90vh;
             }
-            
+
             .modal-close {
                 top: 10px;
                 right: 10px;
@@ -515,11 +526,17 @@
         }
 
         @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <!-- Header principal -->
@@ -611,7 +628,9 @@
         <!-- Sección de bienvenida actualizada -->
         <div class="welcome-section">
             <h3>🚀 Tu viaje con Git comienza aquí</h3>
-            <p>Git es el sistema de control de versiones más utilizado del mundo. Ya sea que estés empezando o quieras profundizar, aquí encontrarás todo lo que necesitas: desde los conceptos básicos hasta configuraciones avanzadas y una referencia rápida de comandos.</p>
+            <p>Git es el sistema de control de versiones más utilizado del mundo. Ya sea que estés empezando o quieras
+                profundizar, aquí encontrarás todo lo que necesitas: desde los conceptos básicos hasta configuraciones
+                avanzadas y una referencia rápida de comandos.</p>
         </div>
 
         <!-- Stats section actualizada -->
@@ -638,12 +657,13 @@
         <div class="main-footer">
             <p>Git - Sistema de control de versiones moderno y eficiente</p>
             <p style="margin-top: 10px;">
-                <a href="#" onclick="openModal('que-es-git.html')">¿Qué es Git?</a> • 
-                <a href="#" onclick="openModal('configuracion-git.html')">Configuración</a> • 
-                <a href="#" onclick="openModal('resumen-comandos.html')">Comandos</a> • 
+                <a href="#" onclick="openModal('que-es-git.html')">¿Qué es Git?</a> •
+                <a href="#" onclick="openModal('configuracion-git.html')">Configuración</a> •
+                <a href="#" onclick="openModal('resumen-comandos.html')">Comandos</a> •
                 <a href="https://git-scm.com" target="_blank">Web oficial</a>
             </p>
-            <p style="margin-top: 20px; opacity: 0.5;">© 2024 - Centro de Recursos Git • Documentación completa para desarrolladores</p>
+            <p style="margin-top: 20px; opacity: 0.5;">© 2024 - Centro de Recursos Git • Documentación completa para
+                desarrolladores</p>
         </div>
     </div>
 
@@ -671,13 +691,13 @@
         function openModal(page) {
             const modal = document.getElementById('contentModal');
             const iframe = document.getElementById('modalIframe');
-            
+
             // Construir la ruta completa
             const basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
-            
+
             showSpinner();
             iframe.src = basePath + page;
-            
+
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden'; // Prevenir scroll del body
         }
@@ -686,7 +706,7 @@
         function closeModal() {
             const modal = document.getElementById('contentModal');
             const iframe = document.getElementById('modalIframe');
-            
+
             modal.style.display = 'none';
             iframe.src = ''; // Limpiar src para detener la carga
             document.body.style.overflow = 'auto'; // Restaurar scroll
@@ -697,21 +717,21 @@
         function closeModalOnClickOutside(event) {
             const modal = document.getElementById('contentModal');
             const modalContent = document.querySelector('.modal-content');
-            
+
             if (event.target === modal) {
                 closeModal();
             }
         }
 
         // Cerrar modal con tecla ESC
-        document.addEventListener('keydown', function(event) {
+        document.addEventListener('keydown', function (event) {
             if (event.key === 'Escape') {
                 closeModal();
             }
         });
 
         // Añadir animación de entrada a las tarjetas
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const cards = document.querySelectorAll('.card');
             cards.forEach((card, index) => {
                 card.style.animation = `fadeInUp 0.5s ease-out ${index * 0.2}s forwards`;
@@ -754,7 +774,7 @@
         checkFiles();
 
         // Precargar el primer iframe para mejor experiencia
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             // Opcional: precargar recursos
             const linkPrefetch = document.createElement('link');
             linkPrefetch.rel = 'prefetch';
@@ -765,7 +785,9 @@
 
     <!-- Nota informativa (oculta pero disponible) -->
     <div style="display: none;" id="fileNote">
-        <p>⚠️ Asegúrate de que los archivos 'que-es-git.html', 'configuracion-git.html' y 'resumen-comandos.html' estén en el mismo directorio que este archivo.</p>
+        <p>⚠️ Asegúrate de que los archivos 'que-es-git.html', 'configuracion-git.html' y 'resumen-comandos.html' estén
+            en el mismo directorio que este archivo.</p>
     </div>
 </body>
+
 </html>
